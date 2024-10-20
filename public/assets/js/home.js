@@ -29,3 +29,16 @@ function sendData()
     }
    });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    var bigImage = document.getElementById("bigOne");
+
+    var previews = document.querySelectorAll(".preview");
+
+    previews.forEach(function(preview) {
+        preview.addEventListener("click", function() {
+            var previewNumber = this.id.replace('preview', '');
+            bigImage.src = "http://127.0.0.1:8000/assets/img/middle_section/bigOne" + previewNumber + ".png";
+        });
+    });
+});
