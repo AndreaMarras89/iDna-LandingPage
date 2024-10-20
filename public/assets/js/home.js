@@ -26,9 +26,21 @@ function sendData()
     error: function(xhr, status, error)
     {
         console.error('Errore nel recupero dei dati:', error);
+        alert('Per favore, compila tutti i campi prima di inviare il form.');
     }
    });
 }
+
+$(document).ready(function() {
+    $('a[href="#contact-form"]').on('click', function(event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $('#contact_form').offset().top
+        }, 1000);
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var bigImage = document.getElementById("bigOne");

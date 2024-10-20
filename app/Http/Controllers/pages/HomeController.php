@@ -33,26 +33,9 @@ class HomeController extends Controller
         ], 422);
     }
 
-    /*$email_data = Email_Info::create([
-        'name' => $request->input('name'),
-        'email' => $request->input('email'),
-        'birthplace' => $request->input('birthplace'),
-        'birthday' => $request->input('birthday'),
-        'message' => $request->input('message'),
-    ]);*/
-    
-
-    $data =
-        [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'birthplace' => $request->input('birthplace'),
-            'birthday' => $request->input('birthday'),
-            'message' => $request->input('message'),
-        ];
-
-
-    Mail::to('andreamarras634@gmail.com')->send(new EmailNotification($data));
+    $validated = $validator->validated();
+    $email_data = Email_Info::create($validated);
+    Mail::to('andreamarras634@gmail.com')->send(new EmailNotification($validated));
 
      return response()->json(['success' => true]);
 
