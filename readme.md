@@ -2,7 +2,7 @@
 
 ---
 
-La landing page consiste in una pagina responsive che dovrebbe fornire i possibili dettagli di una tavola da surf con annessi link alle pagine social, a cui segue un form di contatto che manda una email con i dati inseriti effettuando una chiamata asincrona che valida i dati ricevuti in input, li salva nel database, e poi crea una vista in html e invia l'email. 
+La landing page è una pagina responsive progettata per mostrare i dettagli di un prodotto, con collegamenti ai social media. Includere un modulo di contatto che consente agli utenti di inviare i propri dati via email. Il form effettua una chiamata asincrona per validare i dati inseriti, salvarli nel database e inviare un'email all'amministratore con il riepilogo delle informazioni ricevute.
 
 ### Tecnologie utilizzate
 
@@ -11,13 +11,17 @@ La landing page consiste in una pagina responsive che dovrebbe fornire i possibi
 - css
 - bootstrap
 - javascript
-- mysql come database
+- mysql
 
 ---
 
 ### Backend
 
-Utilizzando l'MVC ho creato un controller "HomeController.php" che riceve una chiamata ajax dal file "home.js" in cui valida i dati ricevuti in input, se questi non sono validi verrà lanciato un "alert" che avvertirà di compilare i campi correttamente, se invece sono validi verranno inseriti in un'array, inseriti dentro il database e poi spediti usando "EmailNotification".
+Il backend utilizza l'architettura MVC (Model-View-Controller) di Laravel. Ho implementato un controller chiamato HomeController che gestisce la logica del form di contatto. Il file JavaScript (home.js) invia i dati del form tramite una chiamata AJAX, che il controller elabora nel seguente modo:
+
+- I dati vengono validati utilizzando Validator.
+- Se i dati non sono validi, viene restituita una risposta JSON con errori, e il frontend visualizza un avviso all'utente.
+- Se i dati sono validi, vengono salvati nel database e viene inviata un'email di notifica tramite EmailNotification.
 
 ```bash
 public function sendData(Request $request)
@@ -50,14 +54,19 @@ public function sendData(Request $request)
 
 ### Frontend
 
-Ho creato una struttura responsive sfruttando le classi html e di bootstrap e "@media" di css. Ho iniziato sviluppando per schermi desktop in quanto le specifiche spiegavano che sarebbe stato visto tramite desktop e poi ho fatto schermi più piccoli sino ad arrivare al mobile.
-In schermi sotto i 400px notavo come il video iniziasse a vedersi molto male, ho preferito così non mostrarlo in versione mobile mentre rimane disponibile in versioni tablet e desktop.
-Ho creato usando javascript un anchor che cliccando sull'icona mail nell'header e nel link "contact us" nel footer portassero l'utente direttamente al form. 
+Ho realizzato una struttura responsive utilizzando le classi HTML e Bootstrap, insieme alle media query CSS (@media). Lo sviluppo è iniziato ottimizzando la visualizzazione per gli schermi desktop, come richiesto dalle specifiche, per poi adattare il design a schermi più piccoli fino alla visualizzazione mobile.
+
+## Gestione del video
+Per gli schermi con una larghezza inferiore a 400px, ho riscontrato una scarsa qualità del video. Pertanto, ho deciso di non mostrarlo su dispositivi mobili, mantenendolo visibile solo su tablet e desktop.
+
+## Funzionalità di ancoraggio
+Inoltre, ho implementato con JavaScript un'ancora che, al clic sull'icona della mail nell'header o sul link "Contact Us" nel footer, reindirizza l'utente direttamente al modulo di contatto.
 
 ### Step per installazione e configurazione
 
 ---
 
-- Creare un progetto in Laravel e aggiungere EmailNotification per la gestione e l'invio delle email.
-- Configurare l'.env, io ho usato Google/Gmail quindi ho dovuto crearmi una password per app per poter inviare l'email.
+- Creare un progetto in Laravel
+- Configurazione dell'.env.
+- Implementare EmailNotification per la gestione e l'invio delle email
 - Copiare i contenuti delle cartelle.
